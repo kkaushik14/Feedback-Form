@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="output.css">
+    <style>
+      body { font-family: 'Fira Mono', monospace; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800">
+      <h1 class="text-3xl font-bold mb-6 text-center">Feedback Form</h1>
+      <form class="space-y-4">
+        <div>
+          <label for="name" class="block mb-1 text-slate-200">Name:</label>
+          <input type="text" id="name" name="name" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+        </div>
+        <div>
+          <label for="email" class="block mb-1 text-slate-200">Email:</label>
+          <input type="email" id="email" name="email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+        </div>
+        <div>
+          <label for="feedback" class="block mb-1 text-slate-200">Feedback:</label>
+          <textarea id="feedback" name="feedback" rows="4" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500"></textarea>
+        </div>
+        <button type="submit" class="w-full py-2 px-4 rounded bg-slate-600 hover:bg-slate-500 text-slate-200 font-bold transition">Submit</button>
+      </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
