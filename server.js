@@ -6,7 +6,7 @@ const connectDB = require('./lib/db');
 dotenv.config();
 
 const app = express();
-const hostname = '127.0.0.1';
+// const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 
 connectDB();
@@ -22,5 +22,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, hostname, () => {
-  console.log(`Server is listening at http://${hostname}:${port}`);
+  console.log(`Server is listening at ${port}`);
 });
