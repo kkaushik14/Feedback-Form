@@ -21,6 +21,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(port, hostname, () => {
+app.listen(port, () => {
   console.log(`Server is listening at ${port}`);
 });
