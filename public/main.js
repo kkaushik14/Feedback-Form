@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = document.getElementById('email').value;
     const feedback = document.getElementById('feedback').value;
 
-    const response = await fetch('https://feedback-form-4-ewjy.onrender.com', {
+    const response = await fetch(process.env.API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
