@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = document.getElementById('email').value;
     const feedback = document.getElementById('feedback').value;
 
-    const response = await fetch(process.env.API_URL, {
+    const response = await fetch('/api/feedback', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
