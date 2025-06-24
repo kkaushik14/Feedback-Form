@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Form</title>
+    <title>Login/Signup | Movie Review</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="output.css">
     <style>
@@ -11,24 +11,61 @@
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800">
-      <h1 class="text-3xl font-bold mb-6 text-center">Feedback Form</h1>
-      <form class="space-y-4">
+  <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800">
+    <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
+    <form id="login-form" class="space-y-4 mb-4">
+      <div>
+        <label for="login-email" class="block mb-1 text-slate-200">Email:</label>
+        <input type="email" id="login-email" name="login-email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <div>
+        <label for="login-password" class="block mb-1 text-slate-200">Password:</label>
+        <input type="password" id="login-password" name="login-password" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      </div>
+      <button type="submit" class="w-full py-2 px-4 rounded bg-blue-600 hover:bg-blue-500 text-slate-200 font-bold transition">Login</button>
+    </form>
+    <div class="text-center mt-4">
+      <span class="text-slate-400">Not have an account?</span>
+      <button id="show-signup" class="ml-2 text-green-400 hover:text-green-300 font-semibold underline">Register</button>
+    </div>
+  </div>
+  <!-- Signup Modal -->
+  <div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+    <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800 relative">
+      <button id="close-signup" class="absolute top-2 right-2 text-slate-400 hover:text-slate-200 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+      <form id="signup-form" class="space-y-4">
         <div>
-          <label for="name" class="block mb-1 text-slate-200">Name:</label>
-          <input type="text" id="name" name="name" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+          <label for="signup-email" class="block mb-1 text-slate-200">Email:</label>
+          <input type="email" id="signup-email" name="signup-email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div>
-          <label for="email" class="block mb-1 text-slate-200">Email:</label>
-          <input type="email" id="email" name="email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
+          <label for="signup-password" class="block mb-1 text-slate-200">Password:</label>
+          <input type="password" id="signup-password" name="signup-password" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div>
-          <label for="feedback" class="block mb-1 text-slate-200">Feedback:</label>
-          <textarea id="feedback" name="feedback" rows="4" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500"></textarea>
+          <label for="signup-confirm" class="block mb-1 text-slate-200">Confirm Password:</label>
+          <input type="password" id="signup-confirm" name="signup-confirm" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-        <button type="submit" class="w-full py-2 px-4 rounded bg-slate-600 hover:bg-slate-500 text-slate-200 font-bold transition">Submit</button>
+        <button type="submit" class="w-full py-2 px-4 rounded bg-green-600 hover:bg-green-500 text-slate-200 font-bold transition">Sign Up</button>
       </form>
     </div>
-    <script src="main.js"></script>
+  </div>
+  <script src="auth.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    // Show signup modal
+    document.getElementById('show-signup').onclick = function() {
+      document.getElementById('signup-modal').classList.remove('hidden');
+    };
+    // Hide signup modal
+    document.getElementById('close-signup').onclick = function() {
+      document.getElementById('signup-modal').classList.add('hidden');
+    };
+    // Optional: Hide modal on outside click
+    document.getElementById('signup-modal').onclick = function(e) {
+      if (e.target === this) this.classList.add('hidden');
+    };
+  </script>
 </body>
 </html>

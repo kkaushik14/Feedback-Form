@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="output.css">
+  <style>
+    body { font-family: 'Fira Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-2xl p-8 rounded-lg shadow-lg bg-slate-800">
+    <h1 class="text-3xl font-bold mb-6 text-center">User Reviews</h1>
+    <div id="reviews-list" class="space-y-6">
+      <!-- Reviews will be dynamically loaded here -->
+    </div>
+  </div>
+  <script>
+    // Fetch and display reviews from backend
+    async function loadReviews() {
+      const res = await fetch('/api/feedback');
+      const data = await res.json();
+      const reviewsList = document.getElementById('reviews-list');
+      reviewsList.innerHTML = '';
+      if (Array.isArray(data) && data.length > 0) {
+        data.reverse().forEach(r => {
+          const review = document.createElement('div');
+          review.className = 'bg-slate-700 rounded p-4 shadow';
+          review.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-lg">${r.name}</span>
+              <span class="text-xs text-slate-400">${new Date(r.date).toLocaleString()}</span>
+            </div>
+            <div class="mb-1"><span class="font-semibold">Movie:</span> ${r.movname || ''}</div>
+            <div class="mb-1"><span class="font-semibold">Rating:</span> ${r.rating || ''}</div>
+            <div class="mb-1"><span class="font-semibold">Feedback:</span> ${r.feedback}</div>
+          `;
+          reviewsList.appendChild(review);
+        });
+      } else {
+        reviewsList.innerHTML = '<div class="text-center text-slate-400">No reviews yet.</div>';
+      }
+    }
+    loadReviews();
+  </script>
+</body>
+</html>
