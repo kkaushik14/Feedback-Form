@@ -33,13 +33,31 @@
 <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 min-h-screen flex flex-col">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 z-20 w-full glass py-4 px-8 flex justify-between items-center mb-8">
-    <span class="text-2xl font-bold tracking-wide text-slate-100">Movie Recommendations</span>
-    <div class="flex gap-4">
-      <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:bg-blue-500 transition shadow">Feedback</a>
-      <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:bg-green-500 transition shadow">Reviews</a>
-    </div>
-  </nav>
+<nav class="sticky top-0 z-20 w-full glass py-4 px-8 flex justify-between items-center mb-8">
+  <span class="text-2xl font-bold tracking-wide text-slate-100">Movie Recommendations</span>
+
+  <!-- Hamburger (visible on mobile) -->
+  <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+
+  <!-- Desktop menu -->
+  <div id="navbar-links" class="hidden md:flex gap-4">
+    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Feedback</a>
+    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Reviews</a>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="md:hidden px-8 pb-4 hidden">
+  <div class="flex flex-col gap-4">
+    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Feedback</a>
+    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Reviews</a>
+  </div>
+</div>
 
   <!-- Main -->
   <main class="flex-1 flex flex-col items-center justify-center">
@@ -60,6 +78,17 @@
       </div>
     </div>
   </main>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    toggleBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  });
+  </script>
 
   <script>
     let allMovies = [];

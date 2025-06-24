@@ -11,14 +11,24 @@
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center">
-  <nav class="fixed top-0 left-0 w-full bg-slate-800 shadow z-10">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="text-xl font-bold tracking-wide text-slate-200">Movie Feedback</div>
-      <div class="space-x-6" id="navbar-links">
-        <!-- Navbar links will be injected by navbar.js -->
-      </div>
+<nav class="fixed top-0 left-0 w-full bg-slate-800 shadow z-10">
+  <div class="w-full flex items-center justify-between pl-4 pr-6 md:pl-10 md:pr-10 py-3 max-w-7xl mx-auto">
+    <div class="text-xl font-bold tracking-wide text-slate-200 space-x-6 pr-2">
+      Movie Feedback
     </div>
-  </nav>
+    <button id="menu-toggle" class="md:hidden text-slate-200 focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+    <div id="navbar-links" class="hidden md:flex items-center space-x-6 pr-0">
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden">
+    <div class="flex flex-col space-y-4" id="mobile-links"></div>
+  </div>
+</nav>
 
     <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800">
       <h1 class="text-3xl font-bold mb-6 text-center">Feedback Form</h1>
