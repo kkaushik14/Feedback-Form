@@ -1,26 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('form');
+  if (!form) return;
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const movname = document.getElementById('movname').value;
-    const rating = document.getElementById('rating').value;
-    const feedback = document.getElementById('feedback').value;
-
-    const response = await fetch('/api/feedback', {
+    // Check session before submitting
+    const authRes = await fetch('/api/auth/me');
+    const authData = await authRes.json();
+    if (!authData.email) {
+      alert('Session expired. Please login again.');
+      window.location.href = 'index.html';
+      return;
+    }
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    const res = await fetch('/api/feedback', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, movname, rating, feedback }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-
-    if (response.ok) {
-      alert('Thank you for your feedback!');
+    if (res.ok) {
+      alert('Feedback submitted!');
       form.reset();
+      // Refill email if needed
+      const emailInput = document.getElementById('email');
+      if (emailInput && authData.email) {
+        emailInput.value = authData.email;
+        emailInput.readOnly = true;
+      }
     } else {
-      alert('There was an error submitting your feedback.');
+      const err = await res.json();
+      alert(err.message || 'Failed to submit feedback.');
     }
   });
 });

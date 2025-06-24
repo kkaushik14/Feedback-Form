@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Recommendation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="output.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .glass {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .active-filter {
+      ring-width: 4px;
+      background-color: rgba(59, 130, 246, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-20 w-full glass py-4 px-8 flex justify-between items-center mb-8">
+    <span class="text-2xl font-bold tracking-wide text-slate-100">Movie Recommendations</span>
+    <div class="flex gap-4">
+      <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:bg-blue-500 transition shadow">Feedback</a>
+      <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:bg-green-500 transition shadow">Reviews</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col items-center justify-center">
+    <div class="w-full max-w-5xl px-4 py-6 mx-auto">
+      <!-- Filter Buttons -->
+      <div class="flex flex-col items-center mb-6 gap-4">
+        <h1 class="text-3xl font-bold text-center text-slate-100">Find Your Next Movie</h1>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button class="filter-btn px-6 py-2 rounded-full glass text-slate-100 font-bold uppercase tracking-wide shadow focus:outline-none transition" data-filter="top">Top</button>
+          <button class="filter-btn px-6 py-2 rounded-full glass text-slate-100 font-bold uppercase tracking-wide shadow focus:outline-none transition" data-filter="average">Average</button>
+          <button class="filter-btn px-6 py-2 rounded-full glass text-slate-100 font-bold uppercase tracking-wide shadow focus:outline-none transition" data-filter="otw">OTW</button>
+        </div>
+      </div>
+
+      <!-- Movie Cards -->
+      <div id="recommendation-list" class="flex gap-6 overflow-x-auto hide-scrollbar w-full pb-4 px-1 sm:px-2">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let allMovies = [];
+    let currentFilter = 'top';
+
+    async function loadRecommendations() {
+      try {
+        const res = await fetch('/api/feedback');
+        const data = await res.json();
+
+        const movieMap = {};
+        (Array.isArray(data) ? data : []).forEach(r => {
+          if (!r.movname) return;
+          const key = r.movname.trim().toLowerCase();
+          if (!movieMap[key]) {
+            movieMap[key] = { movname: r.movname, ratings: [], reviews: [] };
+          }
+          movieMap[key].ratings.push(Number(r.rating));
+          movieMap[key].reviews.push(r);
+        });
+
+        allMovies = Object.values(movieMap).map(m => {
+          const avg = m.ratings.length ? m.ratings.reduce((a, b) => a + b, 0) / m.ratings.length : 0;
+          let tag = 'otw';
+          if (avg > 7) tag = 'top';
+          else if (avg > 6.2) tag = 'average';
+          else if (avg > 4.5) tag = 'otw';
+          return { ...m, avgRating: avg, tag };
+        });
+
+        renderRecommendations(currentFilter);
+      } catch (error) {
+        document.getElementById('recommendation-list').innerHTML =
+          '<div class="text-center text-red-400 w-full">Failed to load recommendations.</div>';
+      }
+    }
+
+    function renderRecommendations(filter) {
+      currentFilter = filter;
+      const list = document.getElementById('recommendation-list');
+      const filtered = allMovies.filter(m => m.tag === filter);
+
+      list.innerHTML = '';
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="text-center text-slate-400 w-full">No movies found for this filter.</div>';
+        return;
+      }
+
+      filtered.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'glass w-48 flex-shrink-0 flex flex-col items-center justify-center p-4 mx-1 my-2 shadow-lg border border-slate-700 hover:scale-105 transition-transform';
+        card.innerHTML = `
+          <span class="font-bold text-lg text-blue-100 mb-2 text-center">${m.movname}</span>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl font-bold text-cyan-300">${m.avgRating.toFixed(1)}</span>
+            <span class="text-sm text-slate-400">/ 10</span>
+          </div>
+          <div class="text-xs text-slate-400">${m.reviews.length} review(s)</div>
+        `;
+        list.appendChild(card);
+      });
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('ring-4', 'ring-blue-200', 'ring-cyan-200', 'ring-pink-200', 'bg-opacity-100', 'bg-slate-700');
+        if (btn.dataset.filter === filter) {
+          btn.classList.add('ring-4', 'bg-slate-700');
+        }
+      });
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => renderRecommendations(btn.dataset.filter));
+    });
+
+    loadRecommendations();
+  </script>
+</body>
+</html>
