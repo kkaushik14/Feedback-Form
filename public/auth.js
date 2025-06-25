@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (res.ok) {
         window.location.href = 'form.html';
       } else {
-        alert(data.error || 'Login failed');
+        showNotification(data.error || 'Login failed', 'error');
       }
     });
   }
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const password = document.getElementById('signup-password').value;
       const confirm = document.getElementById('signup-confirm').value;
       if (password !== confirm) {
-        alert('Passwords do not match');
+        showNotification('Passwords do not match', 'error');
         return;
       }
       const res = await fetch('/api/auth/signup', {
@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       const data = await res.json();
       if (res.ok) {
-        alert('Registered successfully!');
+        showNotification('Registered successfully!', 'success');
         document.getElementById('signup-modal').classList.add('hidden');
         signupForm.reset();
       } else {
-        alert(data.error || 'Signup failed');
+        showNotification(data.error || 'Signup failed', 'error');
       }
     });
   }

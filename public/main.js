@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const authRes = await fetch('/api/auth/me');
     const authData = await authRes.json();
     if (!authData.email) {
-      alert('Session expired. Please login again.');
-      window.location.href = 'index.html';
+      showNotification('Session expired. Please login again.', 'error');
+      setTimeout(() => { window.location.href = 'index.html'; }, 1500);
       return;
     }
     const formData = new FormData(form);
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(payload)
     });
     if (res.ok) {
-      alert('Feedback submitted!');
+      showNotification('Feedback submitted!', 'success');
       form.reset();
       // Refill email if needed
       const emailInput = document.getElementById('email');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     } else {
       const err = await res.json();
-      alert(err.message || 'Failed to submit feedback.');
+      showNotification(err.message || 'Failed to submit feedback.', 'error');
     }
   });
 });

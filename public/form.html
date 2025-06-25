@@ -105,9 +105,33 @@
 
   <!-- Scripts -->
   <script src="navbar.js"></script>
+  <script src="notification.js"></script>
   <script>
+    // Prevent caching so back button doesn't show stale authenticated page
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if (window.performance && window.performance.navigation.type === 2) {
+      window.location.reload();
+    }
+    // Always re-check authentication on bfcache restore (back/forward navigation)
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        fetch('/api/auth/me', { cache: 'no-store' })
+          .then(res => res.json())
+          .then(data => {
+            if (!data.email) {
+              window.location.href = 'index.html';
+            }
+          });
+      }
+    });
     document.addEventListener('DOMContentLoaded', async function () {
-      const res = await fetch('/api/auth/me');
+      const res = await fetch('/api/auth/me', { cache: 'no-store' });
       const data = await res.json();
       if (!data.email) {
         window.location.href = 'index.html';
