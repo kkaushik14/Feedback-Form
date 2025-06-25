@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movie Recommendation</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="output.css" />
   <style>
     body {
@@ -46,16 +47,18 @@
 
   <!-- Desktop menu -->
   <div id="navbar-links" class="hidden md:flex gap-4">
-    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Feedback</a>
-    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Reviews</a>
+    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-house-door-fill mr-1"></i>Home</a>
+    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-chat-left-text-fill mr-1"></i>Reviews</a>
+    <a href="about.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-info-circle-fill mr-1"></i>About</a>
   </div>
 </nav>
 
 <!-- Mobile menu -->
 <div id="mobile-menu" class="md:hidden px-8 pb-4 hidden">
   <div class="flex flex-col gap-4">
-    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Feedback</a>
-    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow">Reviews</a>
+    <a href="form.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-house-door-fill mr-1"></i>Home</a>
+    <a href="review.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-chat-left-text-fill mr-1"></i>Reviews</a>
+    <a href="about.html" class="px-4 py-2 rounded-full text-white font-semibold hover:text-slate-400 transition shadow"><i class="bi bi-info-circle-fill mr-1"></i>About</a>
   </div>
 </div>
 
@@ -165,5 +168,26 @@
 
     loadRecommendations();
   </script>
+
+    <!-- Footer -->
+  <footer class="w-full bg-slate-900 border-t border-slate-800 mt-10">
+    <div class="max-w-4xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+      <div class="flex items-center gap-2 justify-center">
+        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20.5c-4.5 0-8.5-3.5-8.5-8.5S7.5 3.5 12 3.5s8.5 3.5 8.5 8.5-4 8.5-8.5 8.5z"/>
+          <path d="M12 7v5l3 3"/>
+        </svg>
+        <span class="font-bold text-slate-100 text-lg tracking-wide">Movie Feedback</span>
+      </div>
+      <div class="flex gap-6 text-slate-400 text-sm">
+        <a href="form.html" class="hover:text-blue-400 transition">Feedback</a>
+        <a href="review.html" class="hover:text-blue-400 transition">Reviews</a>
+        <a href="about.html" class="hover:text-blue-400 transition">About</a>
+      </div>
+      <div class="text-slate-500 text-xs">&copy; 2025 Movie Feedback. All rights reserved.</div>
+    </div>
+  </footer>
+
 </body>
 </html>

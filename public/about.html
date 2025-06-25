@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Movie Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="output.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    body {
+      font-family: 'Fira Mono', monospace;
+    }
+    .flip-card {
+      perspective: 1000px;
+      height: 220px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .group:hover .flip-card-inner,
+    .group:focus .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .flip-card-front {
+      background-color: #1e293b;
+    }
+    .flip-card-back {
+      background-color: #0f172a;
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-200 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="w-full bg-slate-800 shadow z-10">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="text-2xl font-bold tracking-wide text-slate-200">Movie Feedback</div>
+      <button id="menu-toggle" class="md:hidden text-slate-200 focus:outline-none">
+        <i class="bi bi-list text-2xl"></i>
+      </button>
+      <div id="menu-items" class="hidden md:flex gap-4 items-center">
+        <a href="form.html" class="hover:text-slate-400 transition"><i class="bi bi-house-door-fill mr-1"></i>Home</a>
+        <a href="review.html" class="hover:text-slate-400 transition"><i class="bi bi-chat-left-text-fill mr-1"></i>Reviews</a>
+        <a href="recommendation.html" class="hover:text-slate-400 transition"><i class="bi bi-stars mr-1"></i>Recommendations</a>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden">
+      <div class="flex flex-col gap-2">
+        <a href="form.html" class="hover:text-slate-400 transition"><i class="bi bi-house-door-fill mr-1"></i>Home</a>
+        <a href="review.html" class="hover:text-slate-400 transition"><i class="bi bi-chat-left-text-fill mr-1"></i>Reviews</a>
+        <a href="recommendation.html" class="hover:text-slate-400 transition"><i class="bi bi-stars mr-1"></i>Recommendations</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col items-center justify-center w-full px-4 py-10">
+    <div class="w-full max-w-5xl glass p-8 rounded-2xl shadow-lg">
+      <!-- About Section -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-blue-300 mb-4">About This Web App</h2>
+        <p class="mb-3 text-slate-300">Movie Feedback is a modern, full-stack SaaS web application for sharing and discovering movie reviews and recommendations.<br>
+        Users can sign up, log in, and submit feedback for any movie, as well as browse, search, and interact with reviews from others.</p>
+        <ul class="mb-3 text-slate-300 list-disc list-inside">
+          <li><span class="font-semibold text-blue-400">Features:</span> User authentication (sign up/login), movie feedback submission, review browsing and search, movie recommendations, responsive navigation and footers, professional SaaS-style UI, and developer contact section.</li>
+          <li><span class="font-semibold text-blue-400">Frontend:</span> HTML5, Tailwind CSS, Fira Mono font, JavaScript (ES6+), Bootstrap Icons, responsive design, and interactive UI/UX with card transitions.</li>
+          <li><span class="font-semibold text-blue-400">Backend:</span> Node.js, Express.js, JWT authentication, cookie-parser, bcryptjs for password hashing, and modular route handling.</li>
+          <li><span class="font-semibold text-blue-400">Database:</span> MongoDB (Mongoose ODM), storing users, feedback, and review data securely.</li>
+          <li><span class="font-semibold text-blue-400">Middlewares & Dependencies:</span> express.json, express.static, dotenv, cookie-parser, bcryptjs, jsonwebtoken, mongoose, and CORS.</li>
+        </ul>
+        <p class="text-slate-400">Whether you want to share your thoughts on a film, find top-rated movies, or connect with other movie lovers, Movie Feedback makes it easy and enjoyable.</p>
+      </section>
+      <h1 class="text-3xl font-bold text-center mb-8 text-blue-300 tracking-wide">Get In Touch</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- GitHub -->
+        <a href="https://github.com/akhilp90" target="_blank" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-github"></i> GitHub</h3>
+              <span class="text-blue-300">Visit GitHub</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Check out exciting projects and repos</span>
+            </div>
+          </div>
+        </a>
+        <!-- LinkedIn -->
+        <a href="#" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-linkedin"></i> LinkedIn</h3>
+              <span class="text-slate-400">Connect (updating soon...)</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Connect with us professionally</span>
+            </div>
+          </div>
+        </a>
+        <!-- Twitter -->
+        <a href="#" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-twitter-x"></i> Twitter(X)</h3>
+              <span class="text-slate-400">Follow (updating soon...)</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Follow us for updates</span>
+            </div>
+          </div>
+        </a>
+        <!-- Facebook -->
+        <a href="#" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-facebook"></i> Facebook</h3>
+              <span class="text-slate-400">Follow (updating soon...)</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Join our community</span>
+            </div>
+          </div>
+        </a>
+        <!-- Instagram -->
+        <a href="#" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-instagram"></i> Instagram</h3>
+              <span class="text-slate-400">Follow (updating soon...)</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Check out our stories</span>
+            </div>
+          </div>
+        </a>
+        <!-- Email -->
+        <a href="mailto:patilakhi9090@gmail.com?subject=Contact%20from%20Movie%20Review" class="flip-card group">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <h3 class="text-lg font-semibold text-blue-400 flex items-center gap-2"><i class="bi bi-envelope"></i> Email</h3>
+              <span class="text-blue-300">Email Us</span>
+            </div>
+            <div class="flip-card-back cursor-pointer">
+              <span class="text-slate-400 text-center">Send us your query</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- Developer Photos Section -->
+ <div class="flex flex-col sm:flex-row justify-center items-center gap-10 mt-10">
+  <div class="flex flex-col items-center">
+    <div class="w-45 h-45 rounded-full bg-slate-700 overflow-hidden shadow-lg flex items-center justify-center">
+      <img 
+        src="https://ik.imagekit.io/u8bm2rlyh/akhi.jpg?updatedAt=1750817262554&tr=w-300,h-300" 
+        alt="Developer 1" 
+        class="object-cover w-full h-full" 
+      />
+    </div>
+    <span class="mt-3 text-base font-semibold text-blue-300">Akhilesh Patil</span>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="w-45 h-45 rounded-full bg-slate-700 overflow-hidden shadow-lg flex items-center justify-center">
+      <img 
+        src="https://ik.imagekit.io/u8bm2rlyh/namitha.jpg?updatedAt=1750817262863&tr=w-300,h-300" 
+        alt="Developer 2" 
+        class="object-cover w-full h-full" 
+      />
+        </div>
+            <span class="mt-3 text-base font-semibold text-blue-300">Namitha</span>
+        </div>
+    </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-slate-900 border-t border-slate-800 mt-10">
+    <div class="max-w-4xl mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
+      <div class="flex items-center gap-2 justify-center">
+        <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20.5c-4.5 0-8.5-3.5-8.5-8.5S7.5 3.5 12 3.5s8.5 3.5 8.5 8.5-4 8.5-8.5 8.5z"/>
+          <path d="M12 7v5l3 3"/>
+        </svg>
+        <span class="font-bold text-lg text-slate-200 tracking-wide">Movie Feedback</span>
+      </div>
+      <div class="flex flex-wrap gap-6 justify-center text-slate-400 text-sm">
+        <a href="review.html" class="hover:text-blue-400 transition">Reviews</a>
+        <a href="recommendation.html" class="hover:text-blue-400 transition">Recommendations</a>
+        <a href="form.html" class="hover:text-blue-400 transition">Home</a>
+      </div>
+      <div class="text-slate-500 text-xs">&copy; 2025 Movie Feedback. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    toggleBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
