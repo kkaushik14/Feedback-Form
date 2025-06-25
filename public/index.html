@@ -3,70 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Signup | Movie Review</title>
+    <title>Smart Movie Recommendations</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="output.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
-      body { font-family: 'Fira Mono', monospace; }
+        body { font-family: 'Fira Mono', monospace; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800">
-    <h1 class="text-3xl font-bold mb-6 text-center">Login</h1>
-    <form id="login-form" class="space-y-4 mb-4">
-      <div>
-        <label for="login-email" class="block mb-1 text-slate-200">Email:</label>
-        <input type="email" id="login-email" name="login-email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-      <div>
-        <label for="login-password" class="block mb-1 text-slate-200">Password:</label>
-        <input type="password" id="login-password" name="login-password" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-      <button type="submit" class="w-full py-2 px-4 rounded bg-blue-600 hover:bg-blue-500 text-slate-200 font-bold transition">Login</button>
-    </form>
-    <div class="text-center mt-4">
-      <span class="text-slate-400">Not have an account?</span>
-      <button id="show-signup" class="ml-2 text-green-400 hover:text-green-300 font-semibold underline">Register</button>
-    </div>
-  </div>
-  <!-- Signup Modal -->
-  <div id="signup-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
-    <div class="w-full max-w-md p-8 rounded-lg shadow-lg bg-slate-800 relative">
-      <button id="close-signup" class="absolute top-2 right-2 text-slate-400 hover:text-slate-200 text-2xl">&times;</button>
-      <h2 class="text-2xl font-bold mb-4 text-center">Sign Up</h2>
-      <form id="signup-form" class="space-y-4">
-        <div>
-          <label for="signup-email" class="block mb-1 text-slate-200">Email:</label>
-          <input type="email" id="signup-email" name="signup-email" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-blue-400">
+                            <i class="fas fa-film mr-2"></i>CineRec
+                        </h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#features" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-star mr-1"></i>Features
+                        </a>
+                        <a href="about.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-info-circle mr-1"></i>About
+                        </a>
+                        <a href="logsin.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            <i class="fas fa-sign-in-alt mr-1"></i>Login
+                        </a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div>
-          <label for="signup-password" class="block mb-1 text-slate-200">Password:</label>
-          <input type="password" id="signup-password" name="signup-password" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800 border-t border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-star mr-1"></i>Features
+                </a>
+                <a href="#about" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-info-circle mr-1"></i>About
+                </a>
+                <a href="logsin.html" class="bg-blue-600 hover:bg-blue-700 text-white block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-user-plus mr-1"></i>Login
+                </a>
+            </div>
         </div>
-        <div>
-          <label for="signup-confirm" class="block mb-1 text-slate-200">Confirm Password:</label>
-          <input type="password" id="signup-confirm" name="signup-confirm" required class="w-full px-3 py-2 rounded bg-slate-700 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 py-20 lg:py-32">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    Discover Your Next
+                    <span class="text-blue-400">Favorite Movie</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Get movie recommendations. Rating, Reviews, and discover films tailored to your taste by using our User feedbacks Recommendation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="logsin.html" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg cursor-pointer">
+                        <i class="fas fa-rocket mr-2"></i>Get Started Free
+                    </a>
+                    <a href="#features" class="bg-transparent border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all cursor-pointer">
+                        <i class="fas fa-play mr-2"></i>View Recommendations
+                    </a>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="w-full py-2 px-4 rounded bg-green-600 hover:bg-green-500 text-slate-200 font-bold transition">Sign Up</button>
-      </form>
-    </div>
-  </div>
-  <script src="auth.js"></script>
-  <script src="navbar.js"></script>
-  <script src="notification.js"></script>
-  <script>
-    // Show signup modal
-    document.getElementById('show-signup').onclick = function() {
-      document.getElementById('signup-modal').classList.remove('hidden');
-    };
-    // Hide signup modal
-    document.getElementById('close-signup').onclick = function() {
-      document.getElementById('signup-modal').classList.add('hidden');
-    };
-    // Optional: Hide modal on outside click
-    document.getElementById('signup-modal').onclick = function(e) {
-      if (e.target === this) this.classList.add('hidden');
-    };
-  </script>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Powerful Features for Movie Lovers
+                </h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Everything you need to discover, rate, and enjoy movies like never before
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1: Movie Recommendations -->
+                <div class="bg-gray-700 rounded-xl p-8 hover:bg-gray-600 transition-all transform hover:scale-105 cursor-pointer" onclick="window.location.href='recommendation.html'">
+                    <div class="text-blue-400 text-4xl mb-4">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Recommendations</h3>
+                    <p class="text-gray-300 mb-4">
+                        Get movie suggestions based on your taste and preferences using user feedback.
+                    </p>
+                    <div class="text-blue-400 font-semibold">
+                        Explore Movies <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Reviews -->
+                <div class="bg-gray-700 rounded-xl p-8 hover:bg-gray-600 transition-all transform hover:scale-105 cursor-pointer" onclick="window.location.href='review.html'">
+                    <div class="text-green-400 text-4xl mb-4">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Users Review</h3>
+                    <p class="text-gray-300 mb-4">
+                        Share your thoughts and rate movies to help others discover great films and improve your recommendations.
+                    </p>
+                    <div class="text-green-400 font-semibold">
+                        View Reviews <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Feedback -->
+                <div class="bg-gray-700 rounded-xl p-8 hover:bg-gray-600 transition-all transform hover:scale-105 cursor-pointer" onclick="window.location.href='form.html'">
+                    <div class="text-purple-400 text-4xl mb-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Write Feedback</h3>
+                    <p class="text-gray-300 mb-4">
+                        Connect with other movie enthusiasts and share feedback to make our platform even better.
+                    </p>
+                    <div class="text-purple-400 font-semibold">
+                        Give Feedback <i class="fas fa-arrow-right ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2" id="movies-count">10,000+</div>
+                    <div class="text-gray-400">Feedback in Database</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-green-400 mb-2" id="users-count">5,000+</div>
+                    <div class="text-gray-400">Active Users</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-2" id="reviews-count">25,000+</div>
+                    <div class="text-gray-400">Reviews Written</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-yellow-400 mb-2" id="recommendations-count">100,000+</div>
+                    <div class="text-gray-400">Recommendations Made</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                        About CineRec
+                    </h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        CineRec is your best movie companion, designed to help you discover films that match your unique taste. Our recommendation uses from your preferences to suggest movies you'll love.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8">
+                        Join thousands of movie enthusiasts who trust CineAI to guide their entertainment choices. Rate movies, write reviews, and connect with a community that shares your passion for cinema.
+                    </p>
+                    <button onclick="window.location.href='about.html'" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Learn More About Us
+                    </button>
+                </div>
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-center">
+                        <i class="fas fa-film text-6xl text-white mb-4"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Ready to Start?</h3>
+                        <p class="text-blue-100 mb-6">Join CineAI today and discover your next favorite movie!</p>
+                        <button onclick="window.location.href='logsin.html'" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                            Sign Up Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                Ready to Discover Amazing Movies?
+            </h2>
+            <p class="text-xl text-blue-100 mb-8">
+                Join thousands of movie lovers who use CineRec to find their next favorite film
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="window.location.href='logsin.html'" class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105">
+                    <i class="fas fa-user-plus mr-2"></i>Create Free Account
+                </button>
+                <button onclick="window.location.href='logsin.html'" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold transition-all">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Sign In
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-2xl font-bold text-blue-400 mb-4">
+                        <i class="fas fa-film mr-2"></i>CineRec
+                    </h3>
+                    <p class="text-gray-400 mb-4 max-w-md">
+                        Your movie recommendation platform. Discover, rate, and review movies with the Freedom.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="recommendation.html" class="text-gray-400 hover:text-white transition-colors">Recommendations</a></li>
+                        <li><a href="review.html" class="text-gray-400 hover:text-white transition-colors">Reviews</a></li>
+                        <li><a href="form.html" class="text-gray-400 hover:text-white transition-colors">Feedback</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Account</h4>
+                    <ul class="space-y-2">
+                        <li><a href="logsin.html" class="text-gray-400 hover:text-white transition-colors">Login</a></li>
+                        <li><a href="logsin.html" class="text-gray-400 hover:text-white transition-colors">Sign Up</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 CineRec | All rights reserved
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation function (you can customize these URLs to match your actual pages)
+        function navigateToPage(page) {
+            const pages = {
+                'login': 'login.html',
+                'signup': 'signup.html',
+                'recommendations': 'recommendations.html',
+                'reviews': 'reviews.html',
+                'feedback': 'feedback.html',
+                'about': 'about.html'
+            };
+            
+            // For demo purposes, show an alert. Replace with actual navigation
+            if (pages[page]) {
+                alert(`Navigating to ${page} page: ${pages[page]}`);
+                // Uncomment the line below for actual navigation
+                // window.location.href = pages[page];
+            }
+        }
+
+        // Animate stats on scroll
+        function animateStats() {
+            const stats = [
+                { id: 'movies-count', target: 10000, suffix: '+' },
+                { id: 'users-count', target: 5000, suffix: '+' },
+                { id: 'reviews-count', target: 25000, suffix: '+' },
+                { id: 'recommendations-count', target: 100000, suffix: '+' }
+            ];
+
+            stats.forEach(stat => {
+                const element = document.getElementById(stat.id);
+                let current = 0;
+                const increment = stat.target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        current = stat.target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current).toLocaleString() + stat.suffix;
+                }, 20);
+            });
+        }
+
+        // Intersection Observer for stats animation
+        const statsSection = document.querySelector('#features').nextElementSibling;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(statsSection);
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('backdrop-blur-md', 'bg-gray-800/90');
+            } else {
+                navbar.classList.remove('backdrop-blur-md', 'bg-gray-800/90');
+            }
+        });
+    </script>
 </body>
 </html>
