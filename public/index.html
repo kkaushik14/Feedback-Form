@@ -26,8 +26,19 @@
         }
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <style>
         body { font-family: 'Fira Mono', monospace; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -79,28 +90,65 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 py-20 lg:py-32">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                    Discover Your Next
-                    <span class="text-blue-400">Favorite Movie</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Get movie recommendations. Rating, Reviews, and discover films tailored to your taste by using our User feedbacks Recommendation.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="logsin.html" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-lg cursor-pointer">
-                        <i class="fas fa-rocket mr-2"></i>Get Started Free
-                    </a>
-                    <a href="#features" class="bg-transparent border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all cursor-pointer">
-                        <i class="fas fa-play mr-2"></i>View Recommendations
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="relative w-full h-96 overflow-hidden">
+  <div id="default-carousel" class="absolute inset-0 z-0" data-carousel="slide">
+    <div class="relative h-full w-full">
+      <div class="duration-700 ease-in-out" data-carousel-item="active">
+        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/75b0ed49-75ab-4a63-bd45-37bc2c95cb73/web/IN-en-20250623-TRIFECTA-perspective_ae5833b7-6ce5-4e88-853e-014f38c506f1_large.jpg"
+          class="w-full object-cover" alt="Slide 1">
+      </div>
+      <!-- Slide 2 -->
+      <div class="hidden duration-700 ease-in-out" data-carousel-item>
+        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/75b0ed49-75ab-4a63-bd45-37bc2c95cb73/web/IN-en-20250623-TRIFECTA-perspective_ae5833b7-6ce5-4e88-853e-014f38c506f1_large.jpg"
+          class="w-full h-full object-cover" alt="Slide 2">
+      </div>
+      </div>
+    </div>
+
+    <div class="absolute z-20 flex bottom-4 left-1/2 -translate-x-1/2 space-x-3">
+      <button class="w-3 h-3 rounded-full bg-white" data-carousel-slide-to="0"></button>
+      <button class="w-3 h-3 rounded-full bg-white/50" data-carousel-slide-to="1"></button>
+    </div>
+
+    <!-- Controls -->
+    <button type="button" class="absolute top-0 left-0 z-20 h-full px-4" data-carousel-prev>
+      <span class="inline-flex items-center justify-center w-10 h-10 bg-white/30 hover:bg-white/60 rounded-full">
+        <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 6 10">
+          <path d="M5 1 1 5l4 4" />
+        </svg>
+      </span>
+    </button>
+    <button type="button" class="absolute top-0 right-0 z-20 h-full px-4" data-carousel-next>
+      <span class="inline-flex items-center justify-center w-10 h-10 bg-white/30 hover:bg-white/60 rounded-full">
+        <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 6 10">
+          <path d="m1 9 4-4-4-4" />
+        </svg>
+      </span>
+    </button>
+  </div>
+
+  <div class="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+
+  <!-- Text Content -->
+  <div class="relative z-20 flex flex-col justify-center items-center h-full text-center text-white px-4">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+      Discover Your Next <span class="text-blue-400">Favorite Movie</span>
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl">
+      Get movie recommendations. Ratings, reviews, and discover films tailored to your taste using our user feedback-based engine.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="logsin.html"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-medium transition transform hover:scale-105 shadow">
+        <i class="fas fa-rocket mr-2"></i> Get Started Free
+      </a>
+      <a href="#features"
+        class="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white px-8 py-3 rounded-lg text-lg font-medium transition">
+        <i class="fas fa-play mr-2"></i> View Recommendations
+      </a>
+    </div>
+  </div>
+</section>
 
     <!-- Features Section -->
     <section id="features" class="py-20 bg-gray-800">
